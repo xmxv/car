@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Spawn Menu</title>
+    <style>
+        body {
+            margin: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .menu {
+            background: #1b1b1b;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+        }
+        .menu label {
+            display: block;
+            margin: 5px 0;
+        }
+        .menu input[type="color"], .menu input[type="text"], .menu button {
+            margin-bottom: 10px;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+        .menu button {
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        .menu button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <label>Vehicle Name:</label>
+        <input type="text" id="vehicleName" placeholder="Vehicle name">
+        <label>Primary Color:</label>
+        <input type="color" id="primaryColor" value="#ff0000">
+        <label>Secondary Color:</label>
+        <input type="color" id="secondaryColor" value="#0000ff">
+        <label>Upgrades:</label>
+        <label><input type="checkbox" id="turbo"> Turbo</label>
+        <label><input type="checkbox" id="bulletproof"> Bulletproof Tires</label>
+        <label><input type="checkbox" id="neon"> Neon Lights</label>
+        <button onclick="spawnCar()">Spawn Car</button>
+        <button onclick="closeMenu()">Cancel</button>
+    </div>
+
+    <script>
+        function spawnCar() {
+            fetch("https://resource-name/spawnCar", {
+                method: "POST",
+                body: JSON.stringify({
+                    vehicle: document.getElementById("vehicleName").value,
+                    primaryColor: document.getElementById("primaryColor").value,
+                    secondaryColor: document.getElementById("secondaryColor").value,
+                    upgrades: {
+                        turbo: document.getElementById("turbo").checked,
+                        bulletproof: document.getElementById("bulletproof").checked,
+                        neon: document.getElementById("neon").checked,
+                    },
+                }),
+            });
+        }
+
+        function closeMenu() {
+            fetch("https://resource-name/closeMenu", { method: "POST" });
+        }
+    </script>
+</body>
+</html>
